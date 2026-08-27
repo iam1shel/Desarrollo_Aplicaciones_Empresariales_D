@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Equipos tecnológicos</h1>
+    <p><a href="{% url 'equipo_create' %}">Registrar equipo</a></p>
+    <p>{{ equipo.prestado_a }}</p>
+
+    {% for equipo in equipos %}
+        <div class="item">
+            <strong>{{ equipo.nombre }}</strong>
+            <p>{{ equipo.tipo }} — {{ equipo.marca }}</p>
+            <p>{{ equipo.ubicacion }} · {{ equipo.estado }}</p>
+            <p>{{ equipo.descripcion }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
