@@ -4,7 +4,6 @@
 <div class="container">
     <h1>Equipos tecnológicos</h1>
     <p><a href="{% url 'equipo_create' %}">Registrar equipo</a></p>
-    <p>{{ equipo.prestado_a }}</p>
 
     {% for equipo in equipos %}
         <div class="item">
@@ -12,6 +11,9 @@
             <p>{{ equipo.tipo }} — {{ equipo.marca }}</p>
             <p>{{ equipo.ubicacion }} · {{ equipo.estado }}</p>
             <p>{{ equipo.descripcion }}</p>
+            {% if equipo.prestado_a %}
+            <p>Prestado a: {{ equipo.prestado_a }}</p>
+            {% endif %}
         </div>
     {% endfor %}
 </div>
