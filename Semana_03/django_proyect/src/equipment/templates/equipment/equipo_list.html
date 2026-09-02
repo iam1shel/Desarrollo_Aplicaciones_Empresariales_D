@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Equipos tecnológicos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Equipos tecnológicos</h1>
+            <p class="muted">Inventario de laptops, proyectores y accesorios disponibles en el campus.</p>
+        </div>
+        <div class="toolbar">
+            <a class="btn" href="{% url 'equipo_create' %}">Registrar equipo</a>
+        </div>
+    </div>
+
+    {% for equipo in equipos %}
+        <div class="item">
+            <strong>{{ equipo.nombre }}</strong>
+            <span class="badge {% if equipo.estado == 'disponible' %}badge-ok{% else %}badge-warn{% endif %}">
+                {{ equipo.get_estado_display }}
+            </span>
+            <p>{{ equipo.tipo }} — {{ equipo.marca }}</p>
+            <p>{{ equipo.ubicacion }}</p>
+            {% if equipo.descripcion %}
+            <p>{{ equipo.descripcion }}</p>
+            {% endif %}
+            {% if equipo.prestado_a %}
+            <p>Prestado a: {{ equipo.prestado_a }}</p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p class="empty">No hay equipos registrados.</p>
+    {% endfor %}
+</div>
+{% endblock %}

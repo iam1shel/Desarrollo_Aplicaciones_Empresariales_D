@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de préstamo{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Detalle de préstamos</h1>
+            <p class="muted">Ítems incluidos en cada préstamo. Si se elimina el préstamo, también se eliminan estos registros.</p>
+        </div>
+        <a class="btn" href="{% url 'detalle_create' %}">Registrar detalle</a>
+    </div>
+
+    {% for detalle in detalles %}
+        <div class="item">
+            <strong>{{ detalle.nombre_equipo }}</strong>
+            <p>Préstamo: {{ detalle.prestamo.codigo }} · cantidad {{ detalle.cantidad }}</p>
+            {% if detalle.observacion %}<p>{{ detalle.observacion }}</p>{% endif %}
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'detalle_update' detalle.pk %}">Editar</a>
+                <a class="btn-danger" href="{% url 'detalle_delete' detalle.pk %}">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay detalles. Primero registra un préstamo.</p>
+    {% endfor %}
+</div>
+{% endblock %}

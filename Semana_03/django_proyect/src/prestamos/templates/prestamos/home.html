@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de préstamos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Gestión de préstamos</h1>
+            <p class="muted">Controla categorías, espacios, solicitantes y los equipos que salen en cada préstamo.</p>
+        </div>
+        <div class="toolbar">
+            <a class="btn" href="{% url 'prestamo_create' %}">Nuevo préstamo</a>
+            <a class="btn btn-secondary" href="{% url 'equipo_list' %}">Ver equipos</a>
+        </div>
+    </div>
+
+    <div class="cards">
+        <a class="card" href="{% url 'categoria_list' %}">
+            <div class="label">Catálogo</div>
+            <strong>{{ total_categorias }}</strong>
+            <span>Categorías de equipo</span>
+        </a>
+        <a class="card" href="{% url 'espacio_list' %}">
+            <div class="label">Campus</div>
+            <strong>{{ total_espacios }}</strong>
+            <span>Espacios físicos</span>
+        </a>
+        <a class="card" href="{% url 'solicitante_list' %}">
+            <div class="label">Personas</div>
+            <strong>{{ total_solicitantes }}</strong>
+            <span>Solicitantes</span>
+        </a>
+        <a class="card" href="{% url 'prestamo_list' %}">
+            <div class="label">Operación</div>
+            <strong>{{ total_prestamos }}</strong>
+            <span>{{ prestamos_activos }} préstamo(s) activo(s)</span>
+        </a>
+        <a class="card" href="{% url 'detalle_list' %}">
+            <div class="label">Ítems</div>
+            <strong>{{ total_detalles }}</strong>
+            <span>Equipos en préstamos</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

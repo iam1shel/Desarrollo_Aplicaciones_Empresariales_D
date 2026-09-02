@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Espacios{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Espacios físicos</h1>
+            <p class="muted">Aulas, biblioteca y laboratorios donde se usan o devuelven los equipos.</p>
+        </div>
+        <a class="btn" href="{% url 'espacio_create' %}">Registrar espacio</a>
+    </div>
+
+    {% for espacio in espacios %}
+        <div class="item">
+            <strong>{{ espacio.nombre }}</strong>
+            <p>{{ espacio.edificio }}{% if espacio.piso %} · piso {{ espacio.piso }}{% endif %} · aforo {{ espacio.aforo }}</p>
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'espacio_update' espacio.pk %}">Editar</a>
+                <a class="btn-danger" href="{% url 'espacio_delete' espacio.pk %}">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay espacios.</p>
+    {% endfor %}
+</div>
+{% endblock %}
