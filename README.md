@@ -12,7 +12,8 @@ GitHub: https://github.com/iam1shel/Desarrollo_Aplicaciones_Empresariales_D
 | [Semana 01](Semana_01/django_proyect/src) | App Django `core`: catálogo de items |
 | [Semana 02](Semana_02/django_proyect/src) | App Django `equipment`: préstamo de equipos (datos en memoria) |
 | [Semana 03](Semana_03/django_proyect/src) | ORM + SQLite: `equipment` persistente y app `prestamos` con CRUD |
-| Semana 04 – 16 | Pendiente |
+| [Semana 04](Semana_04/django_proyect/src) | Relaciones 1:1, 1:N y N:M (`through`) sobre equipos y préstamos |
+| Semana 05 – 16 | Pendiente |
 
 ## Semana 01
 
@@ -57,8 +58,26 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Semana 04
+
+Misma problemática, ahora con los tres tipos de relación de Django.
+
+- Equipos + ficha 1:1: `http://127.0.0.1:8000/equipos/`
+- Detalle (1:1, mantenimientos 1:N, accesorios N:M): `http://127.0.0.1:8000/equipos/1/`
+- Autorizaciones (CRUD del through): `http://127.0.0.1:8000/prestamos/autorizaciones/`
+
+```bash
+cd Semana_04/django_proyect
+python -m venv venv
+venv\Scripts\activate
+pip install -r src/requirements.txt
+cd src
+python manage.py migrate
+python manage.py runserver
+```
+
 ## Cómo está organizado
 
 Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 01.
 `equipment` es el inventario de equipos. `prestamos` es la gestión de préstamos
-de la semana 03.
+de la semana 03. En la semana 04 esas mismas apps ganan relaciones 1:1, 1:N y N:M.
