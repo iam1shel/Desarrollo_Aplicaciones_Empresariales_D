@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Autorizaciones de espacio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Autorizaciones de espacio</h1>
+            <p class="muted">Modelo intermedio (through) del N:M entre solicitante y espacio. Fecha y estado pertenecen a la relación.</p>
+        </div>
+        <a class="btn" href="{% url 'autorizacion_create' %}">Registrar autorización</a>
+    </div>
+
+    {% for aut in autorizaciones %}
+        <div class="item">
+            <strong>{{ aut.solicitante.nombre }}</strong>
+            <span class="badge {% if aut.estado == 'vigente' %}badge-ok{% else %}badge-warn{% endif %}">
+                {{ aut.get_estado_display }}
+            </span>
+            <p>{{ aut.espacio.nombre }} — {{ aut.espacio.edificio }}</p>
+            <p>{{ aut.fecha_inicio }} → {{ aut.fecha_fin }}</p>
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'autorizacion_update' aut.pk %}">Editar</a>
+                <a class="btn-danger" href="{% url 'autorizacion_delete' aut.pk %}">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay autorizaciones.</p>
+    {% endfor %}
+</div>
+{% endblock %}

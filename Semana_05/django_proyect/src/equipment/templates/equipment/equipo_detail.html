@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}{{ equipo.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>{{ equipo.nombre }}</h1>
+            <p class="muted">{{ equipo.tipo }} — {{ equipo.marca }} · {{ equipo.ubicacion }}</p>
+        </div>
+        <a class="btn btn-secondary" href="{% url 'equipo_list' %}">Volver al listado</a>
+    </div>
+
+    <span class="badge {% if equipo.estado == 'disponible' %}badge-ok{% else %}badge-warn{% endif %}">
+        {{ equipo.get_estado_display }}
+    </span>
+
+    <h2>Ficha técnica (1:1 — acceso directo)</h2>
+    {% if equipo.ficha %}
+        <div class="related">
+            <p><strong>Serie:</strong> {{ equipo.ficha.numero_serie }}</p>
+            {% if equipo.ficha.fecha_adquisicion %}<p>Adquisición: {{ equipo.ficha.fecha_adquisicion }}</p>{% endif %}
+            {% if equipo.ficha.garantia_hasta %}<p>Garantía hasta: {{ equipo.ficha.garantia_hasta }}</p>{% endif %}
+            {% if equipo.ficha.especificaciones %}<p>{{ equipo.ficha.especificaciones }}</p>{% endif %}
+        </div>
+    {% else %}
+        <p class="empty">Este equipo aún no tiene ficha técnica.</p>
+    {% endif %}
+
+    <h2>Mantenimientos (1:N — related_name mantenimientos)</h2>
+    {% for manto in equipo.mantenimientos.all %}
+        <div class="related">
+            <strong>{{ manto.get_tipo_display }}</strong>
+            <span class="badge">{{ manto.fecha }}</span>
+            <p>{{ manto.tecnico }} — {{ manto.descripcion }}</p>
+        </div>
+    {% empty %}
+        <p class="empty">Sin mantenimientos registrados.</p>
+    {% endfor %}
+
+    <h2>Accesorios (N:M — through AsignacionAccesorio)</h2>
+    {% for asg in equipo.asignaciones_accesorio.all %}
+        <div class="related">
+            <strong>{{ asg.accesorio.nombre }}</strong>
+            <span class="badge {% if asg.estado == 'vigente' %}badge-ok{% else %}badge-warn{% endif %}">
+                {{ asg.get_estado_display }}
+            </span>
+            <p>{{ asg.accesorio.tipo }} · cantidad {{ asg.cantidad }} · asignado el {{ asg.fecha_asignacion }}</p>
+        </div>
+    {% empty %}
+        <p class="empty">Sin accesorios asignados.</p>
+    {% endfor %}
+</div>
+{% endblock %}

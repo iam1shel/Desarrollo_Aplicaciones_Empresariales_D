@@ -13,7 +13,8 @@ GitHub: https://github.com/iam1shel/Desarrollo_Aplicaciones_Empresariales_D
 | [Semana 02](Semana_02/django_proyect/src) | App Django `equipment`: préstamo de equipos (datos en memoria) |
 | [Semana 03](Semana_03/django_proyect/src) | ORM + SQLite: `equipment` persistente y app `prestamos` con CRUD |
 | [Semana 04](Semana_04/django_proyect/src) | Relaciones 1:1, 1:N y N:M (`through`) sobre equipos y préstamos |
-| Semana 05 – 16 | Pendiente |
+| [Semana 05](Semana_05/django_proyect/src) | Django Admin: ModelAdmin, list_display, search, filtros e inlines |
+| Semana 06 – 16 | Pendiente |
 
 ## Semana 01
 
@@ -76,8 +77,27 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Semana 05
+
+Misma aplicación de Semana 04, ahora con el panel `/admin/`.
+
+```bash
+cd Semana_05/django_proyect
+python -m venv venv
+venv\Scripts\activate
+pip install -r src/requirements.txt
+cd src
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+- Login Admin: `http://127.0.0.1:8000/admin/`
+- Solicitantes (StackedInline 1:1 + TabularInline N:M): `http://127.0.0.1:8000/admin/prestamos/solicitante/`
+
 ## Cómo está organizado
 
 Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 01.
 `equipment` es el inventario de equipos. `prestamos` es la gestión de préstamos
 de la semana 03. En la semana 04 esas mismas apps ganan relaciones 1:1, 1:N y N:M.
+En la semana 05 se administran desde Django Admin, sin crear modelos nuevos.

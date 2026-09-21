@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar equipo{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Registrar equipo</h1>
+            <p class="muted">Completa los datos del equipo. El registro se guarda en la base de datos.</p>
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="toolbar">
+            <button type="submit">Guardar</button>
+            <a class="btn btn-secondary" href="{% url 'equipo_list' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

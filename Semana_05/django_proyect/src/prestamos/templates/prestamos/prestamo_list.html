@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Préstamos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Préstamos</h1>
+            <p class="muted">Cada préstamo puede incluir varios equipos en su detalle.</p>
+        </div>
+        <a class="btn" href="{% url 'prestamo_create' %}">Registrar préstamo</a>
+    </div>
+
+    <p class="filters">
+        <a href="{% url 'prestamo_list' %}">Todos</a>
+        <a href="?estado=activo">Activos</a>
+        <a href="?estado=devuelto">Devueltos</a>
+        <a href="?estado=atrasado">Atrasados</a>
+    </p>
+
+    {% for prestamo in prestamos %}
+        <div class="item">
+            <strong>{{ prestamo.codigo }}</strong>
+            <span class="badge {% if prestamo.estado == 'activo' %}badge-warn{% elif prestamo.estado == 'devuelto' %}badge-ok{% endif %}">
+                {{ prestamo.get_estado_display }}
+            </span>
+            <p>Solicitante: {{ prestamo.nombre_solicitante }}</p>
+            <p>{{ prestamo.fecha_prestamo }} → {{ prestamo.fecha_estimada_devolucion }}</p>
+            <p>{{ prestamo.detalles.all|length }} ítem(s) en el detalle (acceso inverso related_name)</p>
+            {% for det in prestamo.detalles.all %}
+            <p class="muted">• {{ det.nombre_equipo }} ×{{ det.cantidad }}</p>
+            {% endfor %}
+            {% if prestamo.observaciones %}<p>{{ prestamo.observaciones }}</p>{% endif %}
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'prestamo_update' prestamo.pk %}">Editar</a>
+                <a class="btn-danger" href="{% url 'prestamo_delete' prestamo.pk %}">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay préstamos.</p>
+    {% endfor %}
+</div>
+{% endblock %}

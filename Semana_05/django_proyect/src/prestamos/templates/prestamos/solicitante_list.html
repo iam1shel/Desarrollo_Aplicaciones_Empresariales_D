@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Solicitantes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Solicitantes</h1>
+            <p class="muted">Estudiantes, docentes y personal que pueden pedir un equipo.</p>
+        </div>
+        <a class="btn" href="{% url 'solicitante_create' %}">Registrar solicitante</a>
+    </div>
+
+    <p class="filters">
+        <a href="{% url 'solicitante_list' %}">Todos</a>
+        <a href="?rol=estudiante">Estudiantes</a>
+        <a href="?rol=docente">Docentes</a>
+        <a href="?rol=personal">Personal</a>
+    </p>
+
+    {% for solicitante in solicitantes %}
+        <div class="item">
+            <strong>{{ solicitante.nombre }}</strong>
+            <span class="badge">{{ solicitante.get_rol_display }}</span>
+            <p>{{ solicitante.codigo }}{% if solicitante.correo %} · {{ solicitante.correo }}{% endif %}</p>
+            {% if solicitante.perfil %}
+            <p>Perfil 1:1 — DNI {{ solicitante.perfil.documento_identidad }}{% if solicitante.perfil.telefono %} · {{ solicitante.perfil.telefono }}{% endif %}{% if solicitante.perfil.area_o_ciclo %} · {{ solicitante.perfil.area_o_ciclo }}{% endif %}</p>
+            {% else %}
+            <p class="muted">Sin perfil complementario.</p>
+            {% endif %}
+            {% if solicitante.autorizaciones.all %}
+            <p>Espacios autorizados:</p>
+            <ul class="related-list">
+                {% for aut in solicitante.autorizaciones.all %}
+                <li>{{ aut.espacio.nombre }} ({{ aut.fecha_inicio }} → {{ aut.fecha_fin }}) — {{ aut.get_estado_display }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'solicitante_update' solicitante.pk %}">Editar</a>
+                <a class="btn-danger" href="{% url 'solicitante_delete' solicitante.pk %}">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay solicitantes.</p>
+    {% endfor %}
+</div>
+{% endblock %}
