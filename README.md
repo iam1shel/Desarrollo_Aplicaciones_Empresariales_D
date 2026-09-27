@@ -14,7 +14,8 @@ GitHub: https://github.com/iam1shel/Desarrollo_Aplicaciones_Empresariales_D
 | [Semana 03](Semana_03/django_proyect/src) | ORM + SQLite: `equipment` persistente y app `prestamos` con CRUD |
 | [Semana 04](Semana_04/django_proyect/src) | Relaciones 1:1, 1:N y N:M (`through`) sobre equipos y préstamos |
 | [Semana 05](Semana_05/django_proyect/src) | Django Admin: ModelAdmin, list_display, search, filtros e inlines |
-| Semana 06 – 16 | Pendiente |
+| [Semana 06](Semana_06/django_proyect/src) | Motor de plantillas: herencia, filtros, comentarios e include |
+| Semana 07 – 16 | Pendiente |
 
 ## Semana 01
 
@@ -95,9 +96,32 @@ python manage.py runserver
 - Login Admin: `http://127.0.0.1:8000/admin/`
 - Solicitantes (StackedInline 1:1 + TabularInline N:M): `http://127.0.0.1:8000/admin/prestamos/solicitante/`
 
+## Semana 06
+
+Misma aplicación de Semana 05. Los Templates públicos pasan a compartir
+`base.html` (menú y pie), usan filtros (`date`, `upper`, `length`),
+comentarios `{# #}` e `{% include %}` para el estado del equipo, la
+autorización N:M y los botones Editar/Eliminar. Las Views y las URLs no cambian.
+
+```bash
+cd Semana_06/django_proyect
+python -m venv venv
+venv\Scripts\activate
+pip install -r src/requirements.txt
+cd src
+python manage.py migrate
+python manage.py runserver
+```
+
+- Equipos: `http://127.0.0.1:8000/equipos/`
+- Detalle (1:1, 1:N, N:M): `http://127.0.0.1:8000/equipos/1/`
+- Préstamos: `http://127.0.0.1:8000/prestamos/`
+- Autorizaciones: `http://127.0.0.1:8000/prestamos/autorizaciones/`
+
 ## Cómo está organizado
 
 Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 01.
 `equipment` es el inventario de equipos. `prestamos` es la gestión de préstamos
 de la semana 03. En la semana 04 esas mismas apps ganan relaciones 1:1, 1:N y N:M.
 En la semana 05 se administran desde Django Admin, sin crear modelos nuevos.
+En la semana 06 esos mismos Templates se refactorizan con herencia, filtros e include.

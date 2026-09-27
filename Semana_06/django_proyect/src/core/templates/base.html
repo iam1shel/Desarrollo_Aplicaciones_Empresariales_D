@@ -1,0 +1,25 @@
+{% load static %}
+{# Estructura común del sitio. Cada pantalla hereda este archivo y solo redefine title y content. #}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Préstamo de equipos{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}?v=4">
+</head>
+<body>
+    <nav class="topnav">
+        <a class="brand" href="{% url 'equipo_list' %}">Campus Tech</a>
+        <div class="nav-links">
+            <a href="{% url 'item_list' %}">Catálogo</a>
+            <a href="{% url 'equipo_list' %}">Equipos</a>
+            <a href="{% url 'prestamos_home' %}">Préstamos</a>
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+    <footer class="site-footer">
+        <p>Campus Tech · Préstamo de equipos · Semana 06</p>
+    </footer>
+</body>
+</html>

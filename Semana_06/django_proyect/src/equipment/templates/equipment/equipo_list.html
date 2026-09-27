@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Equipos tecnológicos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Equipos tecnológicos</h1>
+            <p class="muted">{{ equipos|length }} equipo(s) en inventario. Cada uno puede tener ficha 1:1, mantenimientos 1:N y accesorios N:M.</p>
+        </div>
+        <div class="toolbar">
+            <a class="btn" href="{% url 'equipo_create' %}">Registrar equipo</a>
+        </div>
+    </div>
+
+    {% for equipo in equipos %}
+        <div class="item">
+            <strong>{{ equipo.nombre }}</strong>
+            {% include "equipment/_estado_equipo.html" %}
+            <p>{{ equipo.tipo|upper }} — {{ equipo.marca|upper }}</p>
+            <p>{{ equipo.ubicacion }}</p>
+            {% if equipo.descripcion %}<p>{{ equipo.descripcion }}</p>{% endif %}
+            {% if equipo.ficha %}
+            <p>Serie: {{ equipo.ficha.numero_serie }} (acceso directo 1:1)</p>
+            {% else %}
+            <p class="muted">Sin ficha técnica.</p>
+            {% endif %}
+            <div class="actions">
+                <a class="btn-secondary" href="{% url 'equipo_detail' equipo.pk %}">Ver relaciones</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">No hay equipos registrados.</p>
+    {% endfor %}
+</div>
+{% endblock %}
