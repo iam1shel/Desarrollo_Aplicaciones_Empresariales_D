@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte de equipos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Reporte de equipos</h1>
+            <p class="muted">Totales de asignaciones y mantenimientos. Las cifras son unidades, no montos.</p>
+        </div>
+        <a class="btn btn-secondary" href="{% url 'equipo_list' %}">Volver</a>
+    </div>
+
+    <div class="item">
+        <strong>Total de unidades asignadas</strong>
+        <p>{{ total_unidades|floatformat:2 }}</p>
+    </div>
+
+    <h2>Mantenimientos por equipo</h2>
+    {% for equipo in equipos %}
+    <div class="related">
+        <strong>{{ equipo.nombre }}</strong>
+        <span class="badge">{{ equipo.num_mantenimientos }}</span>
+    </div>
+    {% empty %}
+    <p class="empty">No hay equipos.</p>
+    {% endfor %}
+
+    <h2>Asignaciones por estado</h2>
+    {% for fila in por_estado %}
+    <div class="related">
+        <strong>{{ fila.estado_label }}</strong>
+        <p>{{ fila.asignaciones }} asignación(es) · {{ fila.unidades|floatformat:2 }} unidad(es)</p>
+    </div>
+    {% empty %}
+    <p class="empty">No hay asignaciones.</p>
+    {% endfor %}
+
+    <h2>Disponibles con ficha</h2>
+    {% for equipo in disponibles_con_ficha %}
+    <div class="related">
+        <strong>{{ equipo.nombre }}</strong>
+        <p>{{ equipo.tipo }} — {{ equipo.marca }}</p>
+    </div>
+    {% empty %}
+    <p class="empty">Ningún equipo disponible tiene ficha técnica.</p>
+    {% endfor %}
+</div>
+{% endblock %}
