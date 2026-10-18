@@ -1,0 +1,4 @@
+{# El estado se pinta igual en el listado y en el detalle. Un include evita duplicar la clase del badge. #}
+<span class="badge {% if equipo.estado == 'disponible' %}badge-ok{% else %}badge-warn{% endif %}">
+    {{ equipo.get_estado_display|upper }}
+</span>

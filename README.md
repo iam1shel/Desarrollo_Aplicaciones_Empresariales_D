@@ -15,7 +15,9 @@ GitHub: https://github.com/iam1shel/Desarrollo_Aplicaciones_Empresariales_D
 | [Semana 04](Semana_04/django_proyect/src) | Relaciones 1:1, 1:N y N:M (`through`) sobre equipos y préstamos |
 | [Semana 05](Semana_05/django_proyect/src) | Django Admin: ModelAdmin, list_display, search, filtros e inlines |
 | [Semana 06](Semana_06/django_proyect/src) | Motor de plantillas: herencia, filtros, comentarios e include |
-| Semana 07 – 16 | Pendiente |
+| [Semana 07](Semana_07/django_proyect/src) | ORM avanzado: transacciones, `F()`, reportes y QuerySets personalizados |
+| [Semana 08](Semana_08/django_proyect/src) | API REST con Django REST Framework: serializers, ViewSets, router y filtros |
+| Semana 09 – 16 | Pendiente |
 
 ## Semana 01
 
@@ -118,6 +120,26 @@ python manage.py runserver
 - Préstamos: `http://127.0.0.1:8000/prestamos/`
 - Autorizaciones: `http://127.0.0.1:8000/prestamos/autorizaciones/`
 
+## Semana 08
+
+Misma aplicación de Semana 07, ahora con una API REST (Django REST Framework)
+que expone los modelos existentes como JSON. No hay modelos nuevos.
+
+```bash
+cd Semana_08/django_proyect
+python -m venv venv
+venv\Scripts\activate
+pip install -r src/requirements.txt
+cd src
+python manage.py migrate
+python manage.py runserver
+```
+
+- Raíz de la API: `http://127.0.0.1:8000/api/`
+- Accesorios (CRUD, búsqueda y orden): `http://127.0.0.1:8000/api/accesorios/`
+- Equipos anidados (solo lectura): `http://127.0.0.1:8000/api/equipos/`
+- Préstamos activos: `http://127.0.0.1:8000/api/prestamos/activos/`
+
 ## Cómo está organizado
 
 Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 01.
@@ -125,3 +147,4 @@ Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 
 de la semana 03. En la semana 04 esas mismas apps ganan relaciones 1:1, 1:N y N:M.
 En la semana 05 se administran desde Django Admin, sin crear modelos nuevos.
 En la semana 06 esos mismos Templates se refactorizan con herencia, filtros e include.
+En la semana 08 los mismos modelos se exponen además como API REST bajo `/api/`.

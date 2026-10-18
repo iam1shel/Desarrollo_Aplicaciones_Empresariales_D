@@ -1,0 +1,9 @@
+{# Modelo intermedio AutorizacionEspacio (N:M). Fecha y estado pertenecen a la relación, no al solicitante ni al espacio. #}
+<div class="related">
+    <strong>{{ aut.solicitante.nombre }}</strong>
+    <span class="badge {% if aut.estado == 'vigente' %}badge-ok{% else %}badge-warn{% endif %}">
+        {{ aut.get_estado_display|upper }}
+    </span>
+    <p>{{ aut.espacio.nombre }} — {{ aut.espacio.edificio }}</p>
+    <p>{{ aut.fecha_inicio|date:"d/m/Y" }} → {{ aut.fecha_fin|date:"d/m/Y" }}</p>
+</div>
