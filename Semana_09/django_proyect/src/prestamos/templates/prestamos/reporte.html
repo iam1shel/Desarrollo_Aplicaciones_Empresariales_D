@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte de préstamos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Reporte de préstamos</h1>
+            <p class="muted">Conteos de autorizaciones de espacio. No hay montos en esta investigación.</p>
+        </div>
+        <a class="btn btn-secondary" href="{% url 'prestamos_home' %}">Volver</a>
+    </div>
+
+    <div class="item">
+        <strong>Total de autorizaciones</strong>
+        <p>{{ total_autorizaciones|floatformat:2 }}</p>
+        <p class="muted">Préstamos activos de este mes: {{ activos_del_mes }}</p>
+    </div>
+
+    <h2>Autorizaciones por espacio</h2>
+    {% for espacio in espacios %}
+    <div class="related">
+        <strong>{{ espacio.nombre }}</strong>
+        <span class="badge">{{ espacio.num_autorizaciones }}</span>
+        <p>Aforo {{ espacio.aforo }} · cupos disponibles {{ espacio.cupos_disponibles }}</p>
+    </div>
+    {% empty %}
+    <p class="empty">No hay espacios.</p>
+    {% endfor %}
+
+    <h2>Autorizaciones por estado</h2>
+    {% for fila in por_estado %}
+    <div class="related">
+        <strong>{{ fila.estado_label }}</strong>
+        <p>{{ fila.total }} autorización(es)</p>
+    </div>
+    {% empty %}
+    <p class="empty">No hay autorizaciones.</p>
+    {% endfor %}
+</div>
+{% endblock %}

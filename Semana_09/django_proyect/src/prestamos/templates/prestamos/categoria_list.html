@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Categorías{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Categorías de equipo</h1>
+            <p class="muted">Clasifica laptops, proyectores, accesorios y demás tipos de equipo.</p>
+        </div>
+        <a class="btn" href="{% url 'categoria_create' %}">Registrar categoría</a>
+    </div>
+
+    {% for categoria in categorias %}
+        <div class="item">
+            <strong>{{ categoria.nombre }}</strong>
+            {% if categoria.descripcion %}<p>{{ categoria.descripcion }}</p>{% endif %}
+            {% url 'categoria_update' categoria.pk as url_editar %}
+            {% url 'categoria_delete' categoria.pk as url_eliminar %}
+            {% include "includes/acciones.html" %}
+        </div>
+    {% empty %}
+        <p class="empty">No hay categorías.</p>
+    {% endfor %}
+</div>
+{% endblock %}

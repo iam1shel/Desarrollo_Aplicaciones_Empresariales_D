@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Autorizar espacio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Autorizar espacio</h1>
+            <p class="muted">Crea la autorización y descuenta un cupo disponible. El aforo del espacio no cambia.</p>
+        </div>
+        <a class="btn btn-secondary" href="{% url 'autorizacion_list' %}">Volver</a>
+    </div>
+
+    {% if error %}
+    <p class="empty">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="toolbar">
+            <button type="submit">Autorizar</button>
+            <a class="btn btn-secondary" href="{% url 'autorizacion_list' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

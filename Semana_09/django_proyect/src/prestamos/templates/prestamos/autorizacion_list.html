@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Autorizaciones de espacio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <div>
+            <h1>Autorizaciones de espacio</h1>
+            <p class="muted">Modelo intermedio (through) del N:M entre solicitante y espacio. Fecha y estado pertenecen a la relación.</p>
+        </div>
+        <a class="btn" href="{% url 'autorizacion_create' %}">Registrar autorización</a>
+    </div>
+
+    {% for aut in autorizaciones %}
+        <div class="item">
+            {% include "prestamos/_autorizacion.html" %}
+            {% url 'autorizacion_update' aut.pk as url_editar %}
+            {% url 'autorizacion_delete' aut.pk as url_eliminar %}
+            {% include "includes/acciones.html" %}
+        </div>
+    {% empty %}
+        <p class="empty">No hay autorizaciones.</p>
+    {% endfor %}
+</div>
+{% endblock %}
