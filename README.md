@@ -18,7 +18,8 @@ GitHub: https://github.com/iam1shel/Desarrollo_Aplicaciones_Empresariales_D
 | [Semana 07](Semana_07/django_proyect/src) | ORM avanzado: transacciones, `F()`, reportes y QuerySets personalizados |
 | [Semana 08](Semana_08/django_proyect/src) | API REST con Django REST Framework: serializers, ViewSets, router y filtros |
 | [Semana 09](Semana_09/django_proyect) | Introducción a React con Vite: JSX, listas con `map()`, renderizado condicional y listas anidadas |
-| Semana 10 – 16 | Pendiente |
+| [Semana 10](Semana_10/django_proyect) | Componentes y eventos: props, `children`, `useState`, búsquedas y formularios controlados |
+| Semana 11 – 16 | Pendiente |
 
 ## Semana 01
 
@@ -156,6 +157,18 @@ npm run dev
 
 - Interfaz React: `http://localhost:5173/`
 
+## Semana 10
+
+La interfaz de la Semana 09, repartida en componentes. Cada registro, cada lista y cada relación anidada viven en `frontend/src/components/` y reciben sus datos por props. El estado (reservas, búsquedas y formularios) queda dentro del componente que lo usa. Los datos siguen escritos a mano; la API se consume en la Semana 12.
+
+```bash
+cd Semana_10/django_proyect/frontend
+npm install
+npm run dev
+```
+
+- Interfaz React: `http://localhost:5173/`
+
 ## Cómo está organizado
 
 Cada carpeta `Semana_XX` es un laboratorio. `core` es el catálogo de la semana 01.
@@ -165,3 +178,4 @@ En la semana 05 se administran desde Django Admin, sin crear modelos nuevos.
 En la semana 06 esos mismos Templates se refactorizan con herencia, filtros e include.
 En la semana 08 los mismos modelos se exponen además como API REST bajo `/api/`.
 En la semana 09 se agrega `frontend/`, una interfaz React (Vite) que replica la forma de esos datos.
+En la semana 10 esa interfaz se divide en componentes con props, estado y eventos, sin consumir todavía la API.
